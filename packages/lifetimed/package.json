@@ -13,8 +13,7 @@
     "test": "jest",
     "lint": "npx eslint .",
     "clean-dist": "node scripts/clean-dist.cjs",
-    "copy-assets": "node scripts/copy-assets.cjs",
-    "build": "npm run lint && npm test && npm run clean-dist && npm run copy-assets && tsc"
+    "build": "npm run lint && npm test && npm run clean-dist && tsc"
   },
   "author": "CodeWriter",
   "repository": {
