@@ -42,4 +42,14 @@ export class Lifetime {
     public static fromLifetimeController(controller: LifetimeController): Lifetime {
         return new Lifetime(controller);
     }
+
+    public static any(iterable: Lifetime[]): Lifetime {
+        const controller = new LifetimeController();
+
+        for (const lifetime of iterable) {
+            lifetime.onAbort(controller);
+        }
+
+        return new Lifetime(controller);
+    }
 }
