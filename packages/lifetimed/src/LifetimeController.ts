@@ -72,8 +72,6 @@ export class LifetimeController implements LifetimeAbortable {
     public onAbort(listener: LifetimeCallbackOrAbortable): void
     public onAbort(listener: LifetimeCallbackOrAbortable) {
         if (this.aborted) {
-            console.error('Cannot add abort listener on aborted lifetime');
-
             this.callListener(listener);
             return;
         }

@@ -130,11 +130,9 @@ describe('Lifetime', () => {
 
         controller.abort();
 
-        console.error = jest.fn();
         lifetime.onAbort(() => runs += 'R');
 
         expect(runs).toBe('R');
-        expect(console.error).toHaveBeenCalled();
     });
 
     test('AbortSignal on alive lifetime is not aborted', () => {
