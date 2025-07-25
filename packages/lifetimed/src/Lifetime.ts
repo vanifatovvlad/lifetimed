@@ -39,6 +39,13 @@ export class Lifetime {
         return controller;
     }
 
+    public scope(): { lifetime: Lifetime, abort: () => void } {
+        const controller = this.child();
+        const lifetime = Lifetime.fromLifetimeController(controller);
+        const abort = controller.abort.bind(controller);
+        return { lifetime, abort };
+    }
+
     public timeout(time: number): Lifetime {
         const controller = this.child();
         const timeout = setTimeout(() => controller.abort(), time);
