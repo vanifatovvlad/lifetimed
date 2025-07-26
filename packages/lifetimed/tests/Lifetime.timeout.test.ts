@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import { Lifetime, LifetimeController } from "../src";
 
 describe('Lifetime.timeout', () => {
@@ -6,11 +6,11 @@ describe('Lifetime.timeout', () => {
     let lifetime: Lifetime;
 
     beforeAll(() => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
     });
 
     afterAll(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     beforeEach(() => {
@@ -25,7 +25,7 @@ describe('Lifetime.timeout', () => {
     test('alive when timeout in progress', () => {
         const timeouted = lifetime.timeout(1000);
 
-        jest.advanceTimersByTime(900);
+        vi.advanceTimersByTime(900);
 
         expect(timeouted.aborted).toBe(false);
     });
@@ -33,7 +33,7 @@ describe('Lifetime.timeout', () => {
     test('aborted when timeout is out', () => {
         const timeouted = lifetime.timeout(1000);
 
-        jest.advanceTimersByTime(1100);
+        vi.advanceTimersByTime(1100);
 
         expect(timeouted.aborted).toBe(true);
     });
@@ -41,7 +41,7 @@ describe('Lifetime.timeout', () => {
     test('aborted when parent lifetime become aborted', () => {
         const timeouted = lifetime.timeout(1000);
 
-        jest.advanceTimersByTime(900);
+        vi.advanceTimersByTime(900);
 
         controller.abort();
 

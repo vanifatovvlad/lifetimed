@@ -1,4 +1,4 @@
-import { jest, test, beforeEach, afterEach, expect, describe } from '@jest/globals';
+import { test, beforeEach, afterEach, expect, describe, vi } from 'vitest';
 import { Lifetime } from '../src/Lifetime.js';
 import { LifetimeController, LifetimeAbortedError } from "../src/index.js";
 
@@ -61,7 +61,7 @@ describe('Lifetime', () => {
     });
 
     test('skip error in lifetime callback', () => {
-        console.error = jest.fn();
+        console.error = vi.fn();
 
         let runs = '';
 
@@ -191,7 +191,7 @@ describe('Lifetime', () => {
 
         // spy on private function
         // eslint-disable-next-line
-        const compactifySpy = jest.spyOn(controller, COMPACTIFY_LISTENERS as any);
+        const compactifySpy = vi.spyOn(controller, COMPACTIFY_LISTENERS as any);
 
         expect(compactifySpy).toHaveBeenCalledTimes(0);
         expect(controller[LISTENERS_COUNT]).toBe(4);

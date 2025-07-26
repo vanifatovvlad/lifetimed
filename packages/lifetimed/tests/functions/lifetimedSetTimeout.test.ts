@@ -1,4 +1,4 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
 import { Lifetime, LifetimeController, lifetimedSetTimeout } from "../../src";
 
 describe('lifetimedSetTimeout', () => {
@@ -9,11 +9,11 @@ describe('lifetimedSetTimeout', () => {
     let lifetime: Lifetime;
 
     beforeAll(() => {
-        jest.useFakeTimers();
+        vi.useFakeTimers();
     });
 
     afterAll(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
     beforeEach(() => {
@@ -30,10 +30,10 @@ describe('lifetimedSetTimeout', () => {
 
         lifetimedSetTimeout(lifetime, () => runs += 'R', 1000);
 
-        jest.advanceTimersByTime(900);
+        vi.advanceTimersByTime(900);
         expect(runs).toBe('');
 
-        jest.advanceTimersByTime(200);
+        vi.advanceTimersByTime(200);
         expect(runs).toBe('R');
     });
 
@@ -45,7 +45,7 @@ describe('lifetimedSetTimeout', () => {
         controller.abort();
         expect(runs).toBe('');
 
-        jest.advanceTimersByTime(1100);
+        vi.advanceTimersByTime(1100);
         expect(runs).toBe('');
     });
 
@@ -55,11 +55,11 @@ describe('lifetimedSetTimeout', () => {
         lifetimedSetTimeout(lifetime, () => {}, 1000);
         lifetimedSetTimeout(lifetime, () => {}, 1200);
 
-        jest.advanceTimersByTime(900);
+        vi.advanceTimersByTime(900);
         controller[COMPACTIFY_LISTENERS]();
         expect(controller[LISTENERS_COUNT]).toBe(2);
 
-        jest.advanceTimersByTime(400);
+        vi.advanceTimersByTime(400);
         controller[COMPACTIFY_LISTENERS]();
         expect(controller[LISTENERS_COUNT]).toBe(0);
     });
