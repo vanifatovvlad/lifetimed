@@ -5,6 +5,8 @@ export interface LifetimeAbortable {
     abort: () => void;
 }
 
-export function isLifetimeAbortable(object: object): object is LifetimeAbortable {
+export function isLifetimeAbortable(
+    object: object,
+): object is LifetimeAbortable {
     return 'abort' in object;
 }

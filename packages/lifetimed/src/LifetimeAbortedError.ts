@@ -1,4 +1,4 @@
-import { Lifetime } from "./Lifetime.js";
+import { Lifetime } from './Lifetime.js';
 
 export class LifetimeAbortedError extends Error {
     public readonly lifetime: Lifetime;

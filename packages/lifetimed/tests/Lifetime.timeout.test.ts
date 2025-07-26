@@ -1,5 +1,14 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
-import { Lifetime, LifetimeController } from "../src";
+import {
+    afterAll,
+    afterEach,
+    beforeAll,
+    beforeEach,
+    describe,
+    expect,
+    test,
+    vi,
+} from 'vitest';
+import { Lifetime, LifetimeController } from '../src';
 
 describe('Lifetime.timeout', () => {
     let controller: LifetimeController;
@@ -20,7 +29,7 @@ describe('Lifetime.timeout', () => {
 
     afterEach(() => {
         controller.abort();
-    })
+    });
 
     test('alive when timeout in progress', () => {
         const timeouted = lifetime.timeout(1000);

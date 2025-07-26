@@ -1,5 +1,5 @@
-import { describe, expect, test } from "vitest";
-import { Lifetime, LifetimeController } from "../src";
+import { describe, expect, test } from 'vitest';
+import { Lifetime, LifetimeController } from '../src';
 
 describe('Lifetime.any', () => {
     test('alive when all lifetimes alive', () => {
@@ -32,5 +32,4 @@ describe('Lifetime.any', () => {
 
         expect(any.aborted).toBe(true);
     });
-
 });

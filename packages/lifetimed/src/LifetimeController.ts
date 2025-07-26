@@ -1,10 +1,10 @@
-import { Lifetime } from "./Lifetime.js";
+import { Lifetime } from './Lifetime.js';
 import {
     LifetimeAbortable,
     isLifetimeAbortable,
     LifetimeCallbackOrAbortable,
     LifetimeCallback,
-} from "./types.js";
+} from './types.js';
 
 export class LifetimeController implements LifetimeAbortable {
     private _aborted: boolean;
@@ -67,9 +67,9 @@ export class LifetimeController implements LifetimeAbortable {
         }
     }
 
-    public onAbort(callback: LifetimeCallback): void
-    public onAbort(abortable: LifetimeAbortable): void
-    public onAbort(listener: LifetimeCallbackOrAbortable): void
+    public onAbort(callback: LifetimeCallback): void;
+    public onAbort(abortable: LifetimeAbortable): void;
+    public onAbort(listener: LifetimeCallbackOrAbortable): void;
     public onAbort(listener: LifetimeCallbackOrAbortable) {
         if (this.aborted) {
             this.callListener(listener);
@@ -93,7 +93,8 @@ export class LifetimeController implements LifetimeAbortable {
         for (let i = 0; i < this._listenersCount; i++) {
             const listener = this._listeners[i];
 
-            const listenerIsAborted = listener instanceof LifetimeController && listener.aborted;
+            const listenerIsAborted =
+                listener instanceof LifetimeController && listener.aborted;
             if (!listenerIsAborted) {
                 this._listeners[newCount++] = this._listeners[i];
             }

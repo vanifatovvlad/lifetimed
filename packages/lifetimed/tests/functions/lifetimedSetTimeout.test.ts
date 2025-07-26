@@ -1,5 +1,14 @@
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, test, vi } from "vitest";
-import { Lifetime, LifetimeController, lifetimedSetTimeout } from "../../src";
+import {
+    afterAll,
+    afterEach,
+    beforeAll,
+    beforeEach,
+    describe,
+    expect,
+    test,
+    vi,
+} from 'vitest';
+import { Lifetime, LifetimeController, lifetimedSetTimeout } from '../../src';
 
 describe('lifetimedSetTimeout', () => {
     const LISTENERS_COUNT = '_listenersCount';
@@ -28,7 +37,7 @@ describe('lifetimedSetTimeout', () => {
     test('callback executed in time', () => {
         let runs = '';
 
-        lifetimedSetTimeout(lifetime, () => runs += 'R', 1000);
+        lifetimedSetTimeout(lifetime, () => (runs += 'R'), 1000);
 
         vi.advanceTimersByTime(900);
         expect(runs).toBe('');
@@ -40,7 +49,7 @@ describe('lifetimedSetTimeout', () => {
     test('callback not executed when lifetime is aborted', () => {
         let runs = '';
 
-        lifetimedSetTimeout(lifetime, () => runs += 'R', 1000);
+        lifetimedSetTimeout(lifetime, () => (runs += 'R'), 1000);
 
         controller.abort();
         expect(runs).toBe('');

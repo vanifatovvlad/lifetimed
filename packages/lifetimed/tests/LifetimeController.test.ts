@@ -1,6 +1,6 @@
 import { test, beforeEach, afterEach, expect, describe, vi } from 'vitest';
 import { Lifetime } from '../src/Lifetime.js';
-import { LifetimeController, LifetimeAbortedError } from "../src/index.js";
+import { LifetimeController, LifetimeAbortedError } from '../src/index.js';
 
 describe('Lifetime', () => {
     const LISTENERS = '_listeners';
@@ -54,7 +54,7 @@ describe('Lifetime', () => {
 
     test('call callback once on lifetime abort', () => {
         let runs = '';
-        lifetime.onAbort(() => runs += 'R');
+        lifetime.onAbort(() => (runs += 'R'));
         controller.abort();
 
         expect(runs).toBe('R');
@@ -65,11 +65,11 @@ describe('Lifetime', () => {
 
         let runs = '';
 
-        lifetime.onAbort(() => runs += 'A');
+        lifetime.onAbort(() => (runs += 'A'));
         lifetime.onAbort(() => {
-            throw new Error('should be logged and skipped')
+            throw new Error('should be logged and skipped');
         });
-        lifetime.onAbort(() => runs += 'C');
+        lifetime.onAbort(() => (runs += 'C'));
 
         controller.abort();
 
@@ -79,9 +79,9 @@ describe('Lifetime', () => {
 
     test('call lifetime callbacks in reversed order', () => {
         let runs = '';
-        lifetime.onAbort(() => runs += 'A');
-        lifetime.onAbort(() => runs += 'B');
-        lifetime.onAbort(() => runs += 'C');
+        lifetime.onAbort(() => (runs += 'A'));
+        lifetime.onAbort(() => (runs += 'B'));
+        lifetime.onAbort(() => (runs += 'C'));
 
         controller.abort();
 
@@ -90,9 +90,9 @@ describe('Lifetime', () => {
 
     test('call nested lifetime callbacks in reverse order', () => {
         let runs = '';
-        lifetime.onAbort(() => runs += 'A');
-        lifetime.child().onAbort(() => runs += 'B');
-        lifetime.onAbort(() => runs += 'C');
+        lifetime.onAbort(() => (runs += 'A'));
+        lifetime.child().onAbort(() => (runs += 'B'));
+        lifetime.onAbort(() => (runs += 'C'));
 
         controller.abort();
 
@@ -100,8 +100,8 @@ describe('Lifetime', () => {
     });
 
     test('lifetime listeners cleaned on abort', () => {
-        controller.onAbort(() => { });
-        controller.onAbort(() => { });
+        controller.onAbort(() => {});
+        controller.onAbort(() => {});
 
         controller.abort();
 
@@ -130,7 +130,7 @@ describe('Lifetime', () => {
 
         controller.abort();
 
-        lifetime.onAbort(() => runs += 'R');
+        lifetime.onAbort(() => (runs += 'R'));
 
         expect(runs).toBe('R');
     });
@@ -161,32 +161,32 @@ describe('Lifetime', () => {
         expect(controller[LISTENERS_COUNT]).toBe(0);
         expect(controller[LISTENERS]).toHaveLength(2);
 
-        lifetime.onAbort(() => { }); // №1
-        lifetime.onAbort(() => { }); // №2
+        lifetime.onAbort(() => {}); // №1
+        lifetime.onAbort(() => {}); // №2
 
         expect(controller[LISTENERS_COUNT]).toBe(2);
         expect(controller[LISTENERS]).toHaveLength(2);
 
-        lifetime.onAbort(() => { }); // №3
+        lifetime.onAbort(() => {}); // №3
 
         expect(controller[LISTENERS_COUNT]).toBe(3);
         expect(controller[LISTENERS]).toHaveLength(4);
 
-        lifetime.onAbort(() => { }); // №4
-        lifetime.onAbort(() => { }); // №5
-        lifetime.onAbort(() => { }); // №6
+        lifetime.onAbort(() => {}); // №4
+        lifetime.onAbort(() => {}); // №5
+        lifetime.onAbort(() => {}); // №6
 
         expect(controller[LISTENERS_COUNT]).toBe(6);
         expect(controller[LISTENERS]).toHaveLength(8);
     });
 
     test('internal buffer correcly compacting', () => {
-        lifetime.onAbort(() => { }); // №1
+        lifetime.onAbort(() => {}); // №1
 
         const children = [
             lifetime.child(), // №2
             lifetime.child(), // №3
-            lifetime.child() // №4
+            lifetime.child(), // №4
         ];
 
         // spy on private function
@@ -197,20 +197,20 @@ describe('Lifetime', () => {
         expect(controller[LISTENERS_COUNT]).toBe(4);
         expect(controller[LISTENERS]).toHaveLength(4);
 
-        children.forEach(it => it.abort());
+        children.forEach((it) => it.abort());
 
-        lifetime.onAbort(() => { }); // №2
-        lifetime.onAbort(() => { }); // №3
-        lifetime.onAbort(() => { }); // №4
+        lifetime.onAbort(() => {}); // №2
+        lifetime.onAbort(() => {}); // №3
+        lifetime.onAbort(() => {}); // №4
 
         expect(compactifySpy).toHaveBeenCalledTimes(1);
         expect(controller[LISTENERS_COUNT]).toBe(4);
         expect(controller[LISTENERS]).toHaveLength(4);
 
-        lifetime.onAbort(() => { }); // №5
+        lifetime.onAbort(() => {}); // №5
 
         expect(compactifySpy).toHaveBeenCalledTimes(2);
-        expect(controller[LISTENERS_COUNT]).toBe(5)
+        expect(controller[LISTENERS_COUNT]).toBe(5);
         expect(controller[LISTENERS]).toHaveLength(8);
     });
 });

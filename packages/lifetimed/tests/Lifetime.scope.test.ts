@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { Lifetime, LifetimeController } from "../src";
+import { afterEach, beforeEach, describe, expect, test } from 'vitest';
+import { Lifetime, LifetimeController } from '../src';
 
 describe('Lifetime.scope', () => {
     let controller: LifetimeController;

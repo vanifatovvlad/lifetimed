@@ -1,6 +1,10 @@
-import { LifetimeAbortedError } from "./LifetimeAbortedError.js";
-import { LifetimeController } from "./LifetimeController.js";
-import { LifetimeAbortable, LifetimeCallback, LifetimeCallbackOrAbortable } from "./types.js";
+import { LifetimeAbortedError } from './LifetimeAbortedError.js';
+import { LifetimeController } from './LifetimeController.js';
+import {
+    LifetimeAbortable,
+    LifetimeCallback,
+    LifetimeCallbackOrAbortable,
+} from './types.js';
 
 export class Lifetime {
     private _controller: LifetimeController;
@@ -27,8 +31,8 @@ export class Lifetime {
         }
     }
 
-    public onAbort(callback: LifetimeCallback): void
-    public onAbort(abortable: LifetimeAbortable): void
+    public onAbort(callback: LifetimeCallback): void;
+    public onAbort(abortable: LifetimeAbortable): void;
     public onAbort(listener: LifetimeCallbackOrAbortable) {
         this._controller.onAbort(listener);
     }
@@ -39,7 +43,7 @@ export class Lifetime {
         return controller;
     }
 
-    public scope(): { lifetime: Lifetime, abort: () => void } {
+    public scope(): { lifetime: Lifetime; abort: () => void } {
         const controller = this.child();
         const lifetime = Lifetime.fromLifetimeController(controller);
         const abort = controller.abort.bind(controller);
@@ -53,7 +57,9 @@ export class Lifetime {
         return Lifetime.fromLifetimeController(controller);
     }
 
-    public static fromLifetimeController(controller: LifetimeController): Lifetime {
+    public static fromLifetimeController(
+        controller: LifetimeController,
+    ): Lifetime {
         return new Lifetime(controller);
     }
 
