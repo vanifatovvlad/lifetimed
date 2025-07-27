@@ -15,7 +15,8 @@
         "prettier:check": "npx prettier . --check",
         "prettier:write": "npx prettier . --write",
         "clean-dist": "node scripts/clean-dist.cjs",
-        "build": "npm run prettier:check && npm run lint && npm test && npm run clean-dist && tsc"
+        "clean-temp": "node scripts/clean-temp.cjs",
+        "build": "npm run prettier:check && npm run lint && npm test && npm run clean-dist && npx rollup -c && npm run clean-temp"
     },
     "author": "CodeWriter",
     "repository": {
@@ -25,8 +26,12 @@
     "license": "MIT",
     "devDependencies": {
         "@eslint/js": "^9.31.0",
+        "@rollup/plugin-typescript": "^12.1.4",
         "eslint": "^9.31.0",
         "prettier": "3.6.2",
+        "rollup": "^4.46.0",
+        "rollup-plugin-dts": "^6.2.1",
+        "tslib": "^2.8.1",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.36.0",
         "vitest": "^3.2.4"
