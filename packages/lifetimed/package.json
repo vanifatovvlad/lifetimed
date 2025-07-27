@@ -1,7 +1,7 @@
 {
     "name": "lifetimed",
     "type": "module",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "Lifetimed is a JavaScript library for simplifying the management of disposable resources",
     "packageManager": "npm@10.9.2",
     "main": "dist/index.js",
