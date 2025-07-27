@@ -6,7 +6,7 @@ describe('Lifetime.any', () => {
         const lc1 = new LifetimeController();
         const lc2 = new LifetimeController();
 
-        const any = Lifetime.any([lc1.getLifetime(), lc2.getLifetime()]);
+        const any = Lifetime.any([Lifetime.of(lc1), Lifetime.of(lc2)]);
 
         expect(any.aborted).toBe(false);
     });
@@ -15,7 +15,7 @@ describe('Lifetime.any', () => {
         const lc1 = new LifetimeController();
         const lc2 = new LifetimeController();
 
-        const any = Lifetime.any([lc1.getLifetime(), lc2.getLifetime()]);
+        const any = Lifetime.any([Lifetime.of(lc1), Lifetime.of(lc2)]);
 
         lc1.abort();
 
@@ -28,7 +28,7 @@ describe('Lifetime.any', () => {
 
         lc1.abort();
 
-        const any = Lifetime.any([lc1.getLifetime(), lc2.getLifetime()]);
+        const any = Lifetime.any([Lifetime.of(lc1), Lifetime.of(lc2)]);
 
         expect(any.aborted).toBe(true);
     });

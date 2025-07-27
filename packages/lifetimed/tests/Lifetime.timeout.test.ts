@@ -24,7 +24,7 @@ describe('Lifetime.timeout', () => {
 
     beforeEach(() => {
         controller = new LifetimeController();
-        lifetime = controller.getLifetime();
+        lifetime = Lifetime.of(controller);
     });
 
     afterEach(() => {

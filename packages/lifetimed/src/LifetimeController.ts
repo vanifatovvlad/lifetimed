@@ -1,4 +1,3 @@
-import { Lifetime } from './Lifetime.js';
 import {
     LifetimeAbortable,
     isLifetimeAbortable,
@@ -25,10 +24,6 @@ export class LifetimeController implements LifetimeAbortable {
 
     public get aborted(): boolean {
         return this._aborted;
-    }
-
-    public getLifetime(): Lifetime {
-        return Lifetime.fromLifetimeController(this);
     }
 
     public getSignal(): AbortSignal {

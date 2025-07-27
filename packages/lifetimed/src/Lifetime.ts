@@ -45,7 +45,7 @@ export class Lifetime {
 
     public scope(): { lifetime: Lifetime; abort: () => void } {
         const controller = this.child();
-        const lifetime = Lifetime.fromLifetimeController(controller);
+        const lifetime = Lifetime.of(controller);
         const abort = controller.abort.bind(controller);
         return { lifetime, abort };
     }
@@ -54,12 +54,10 @@ export class Lifetime {
         const controller = this.child();
         const timeout = setTimeout(() => controller.abort(), time);
         controller.onAbort(() => clearTimeout(timeout));
-        return Lifetime.fromLifetimeController(controller);
+        return Lifetime.of(controller);
     }
 
-    public static fromLifetimeController(
-        controller: LifetimeController,
-    ): Lifetime {
+    public static of(controller: LifetimeController): Lifetime {
         return new Lifetime(controller);
     }
 
